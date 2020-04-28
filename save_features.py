@@ -72,7 +72,7 @@ if __name__ == '__main__':
 
     checkpoint = torch.load(params.modelfile, map_location='cpu')
 
-    print(checkpoint['state_dict'])
+    print(checkpoint['state_dict'].keys())
 
     model.load_state_dict(checkpoint['state_dict'])
     model.eval()
