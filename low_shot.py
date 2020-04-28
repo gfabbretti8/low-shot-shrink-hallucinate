@@ -15,6 +15,9 @@ import argparse
 import torch.utils.data.sampler
 import os
 import generation
+
+CUDA_LAUNCH_BLOCKING=1
+
 class SimpleHDF5Dataset:
     def __init__(self, file_handle):
         self.f = file_handle
@@ -99,7 +102,7 @@ def training_loop(lowshot_dataset, num_classes, params, batchsize=1000, maxiters
 
         x = Variable(x.cuda())
         y = Variable(y.cuda())
-        print(y.shape)
+
         scores = model(x)
 
         loss = loss_function(scores,y)
