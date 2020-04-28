@@ -100,6 +100,7 @@ def training_loop(lowshot_dataset, num_classes, params, batchsize=1000, maxiters
         (x,y) = lowshot_dataset.get_sample(batchsize)
         optimizer.zero_grad()
 
+        print(y[0].shape)
         x = Variable(x.cuda())
         y = Variable(y.cuda())
 
