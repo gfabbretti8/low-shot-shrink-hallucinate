@@ -68,7 +68,6 @@ if __name__ == '__main__':
     data_loader = data.get_data_loader(data_params)
     model = get_model(params.model, params.num_classes)
     model = model.cuda()
-    model = torch.nn.DataParallel(model)
 
 
     model.load_state_dict(torch.load(params.modelfile))
