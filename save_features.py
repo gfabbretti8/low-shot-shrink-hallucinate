@@ -70,7 +70,7 @@ if __name__ == '__main__':
     #model = model.cuda()
 
 
-    checkpoint = torch.load(params.modelfile, map_location='cpu')
+    checkpoint = dict(torch.load(params.modelfile, map_location='cpu'))
 
     print(checkpoint['state_dict'].keys())
 
