@@ -35,6 +35,7 @@ def save_features(model, data_loader, outfile ):
         x_var = Variable(x)
         feats = model(x_var)
 
+        print(feats.shape)
         feats = feats.view(feats.size(0),-1)
 
         if all_feats is None:
