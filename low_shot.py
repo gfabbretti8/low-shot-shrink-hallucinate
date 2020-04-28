@@ -99,6 +99,7 @@ def training_loop(lowshot_dataset, num_classes, params, batchsize=1000, maxiters
 
         x = Variable(x.cuda())
         y = Variable(y.cuda())
+        print(y.shape)
         scores = model(x)
 
         loss = loss_function(scores,y)
