@@ -70,6 +70,7 @@ if __name__ == '__main__':
     model = model.cuda()
 
     checkpoint = torch.load(params.modelfile, map_location='cpu')
+    print(checkpoint)
     model.load_state_dict(checkpoint['state_dict'])
     model.eval()
 
