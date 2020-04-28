@@ -39,8 +39,8 @@ def save_features(model, data_loader, outfile ):
             all_feats = f.create_dataset('all_feats', (max_count, feats.size(1)), dtype='f')
         all_feats[count:count+feats.size(0),:] = feats.data.cpu().numpy()
 
-        print(y)
-        all_labels[count:count+feats.size(0)] = y.cpu().numpy()
+        y_int = [int(x) for x in y]
+        all_labels[count:count+feats.size(0)] = np.asarray(y_int)
         count = count + feats.size(0)
 
     count_var = f.create_dataset('count', (1,), dtype='i')
