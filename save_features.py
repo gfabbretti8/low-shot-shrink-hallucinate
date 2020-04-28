@@ -70,7 +70,7 @@ if __name__ == '__main__':
     model = model.cuda()
 
 
-    model.load_state_dict(torch.load(params.modelfile))
+    model.load_state_dict(torch.load(params.modelfile)['state_dict'])
     model.eval()
 
     dirname = os.path.dirname(params.outfile)
