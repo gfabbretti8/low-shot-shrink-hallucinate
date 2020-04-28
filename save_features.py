@@ -35,6 +35,7 @@ def save_features(model, data_loader, outfile ):
         x = x.cuda()
         x_var = Variable(x)
         feats = model(x_var)
+
         feats = feats.view(feats.size(0),-1)
 
         if all_feats is None:
@@ -47,18 +48,8 @@ def save_features(model, data_loader, outfile ):
 
     count_var = f.create_dataset('count', (1,), dtype='i')
     count_var[0] = count
-
+    print('Vectorialization finished, the file is available here: {}'.format(outfile))
     f.close()
-
-class FFClassifier(nn.Module):
-    def __init__(self, in_features, out_features):
-        super().__init__()
-        self.fc1 = nn.Linear(in_features, out_features)
-
-    def forward(self, x):
-        x = self.fc1(x)
-        x = F.log_softmax(x, dim=1)
-        return x
 
 def get_model(model_name, num_classes=1000):
 
@@ -72,8 +63,6 @@ def get_model(model_name, num_classes=1000):
                 ResNet152 = model)
 
     return model_dict[model_name]
-
-
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Save features')
@@ -93,14 +82,10 @@ if __name__ == '__main__':
     model = get_model(params.model, params.num_classes)
     model = model.cuda()
 
-
     checkpoint = torch.load(params.modelfile)
-
+    #strict is necessary because we did transfer learning and we don't have the fc layer
+    #in the resnet152 model
     model.load_state_dict(checkpoint['state_dict'], strict=False)
-
-    #newmodel = torch.nn.Sequential(*(list(model.children())[:-1]))
-
-    #newmodel.eval()
 
     model.eval()
 
