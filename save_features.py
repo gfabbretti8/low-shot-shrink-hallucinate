@@ -77,7 +77,10 @@ if __name__ == '__main__':
     model = get_model(params.model, params.num_classes)
     #model = model.cuda()
 
-
+    checkpoint['state_dict'][fc.weight]  =  checkpoint['state_dict'][fc.fc1.weight]
+    checkpoint['state_dict'][fc.bias]  =  checkpoint['state_dict'][fc.fc1.bias]
+    del checkpoint['state_dict'][fc.fc1.bias]
+    del checkpoint['state_dict'][fc.fc1.weight]
     checkpoint = torch.load(params.modelfile, map_location='cpu')
 
 
