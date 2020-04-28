@@ -29,6 +29,7 @@ def save_features(model, data_loader, outfile ):
     count=0
     for i, (x,y) in enumerate(data_loader):
         print(i)
+        torch.cuda.empty_cache() 
         if i%10 == 0:
             print('{:d}/{:d}'.format(i, len(data_loader)))
         x = x.cuda()
