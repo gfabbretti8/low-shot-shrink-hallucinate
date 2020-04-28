@@ -56,7 +56,6 @@ def get_model(model_name, num_classes=1000):
     model = models.resnet152(pretrained=False)
 
     newmodel = torch.nn.Sequential(*(list(model.children())[:-1]))
-    print(newmodel)
 
     model_dict = dict(ResNet10 = ResNetFeat.ResNet10,
                 ResNet18 = ResNetFeat.ResNet18,
@@ -88,7 +87,7 @@ if __name__ == '__main__':
     checkpoint = torch.load(params.modelfile)
     #strict is necessary because we did transfer learning and we don't have the fc layer
     #in the resnet152 model
-    model.load_state_dict(checkpoint['state_dict'], strict=False)
+    model.load_state_dict(checkpoint['state_dict'])
 
     model.eval()
 
