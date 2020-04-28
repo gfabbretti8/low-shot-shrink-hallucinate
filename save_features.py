@@ -16,6 +16,9 @@ import argparse
 import numpy as np
 import h5py
 from torchvision import datasets, transforms, models, utils
+from torch import nn
+from torch import optim
+import torch.nn.functional as F
 
 def save_features(model, data_loader, outfile ):
 
@@ -40,6 +43,17 @@ def save_features(model, data_loader, outfile ):
     count_var[0] = count
 
     f.close()
+
+class FFClassifier(nn.Module):
+    def __init__(self, in_features, out_features):
+        super().__init__()
+        self.fc1 = nn.Linear(in_features, out_features)
+
+    def forward(self, x):
+        x = self.fc1(x)
+        x = F.log_softmax(x, dim=1)
+        return x
+
 
 def get_model(model_name, num_classes=1000):
 
