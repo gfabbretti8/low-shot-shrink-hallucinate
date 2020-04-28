@@ -1,6 +1,6 @@
 dataset_type: 'MetaDataset'
 dataset_params:
-  root: "."
+  rootdir: "."
   meta: 'train.json'
 transform_params:
   transform_list: ['Scale','CenterCrop', 'ToTensor', 'Normalize']
