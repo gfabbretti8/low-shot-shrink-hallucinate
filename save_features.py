@@ -67,7 +67,7 @@ if __name__ == '__main__':
 
     data_loader = data.get_data_loader(data_params)
     model = get_model(params.model, params.num_classes)
-    model = model.cuda()
+    #model = model.cuda()
 
     checkpoint = torch.load(params.modelfile, map_location='cpu')
     model.load_state_dict(checkpoint['state_dict'])
