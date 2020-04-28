@@ -56,10 +56,8 @@ class FFClassifier(nn.Module):
 
 def get_model(model_name, num_classes=1000):
 
-
     model = models.resnet152(pretrained=False)
     model.fc = FFClassifier(2048, 102)
-
 
     model_dict = dict(ResNet10 = ResNetFeat.ResNet10,
                 ResNet18 = ResNetFeat.ResNet18,
@@ -94,7 +92,6 @@ if __name__ == '__main__':
 
     model.load_state_dict(checkpoint['state_dict'])
 
-    model = models.resnet152(pretrained=True)
     newmodel = torch.nn.Sequential(*(list(model.children())[:-1]))
 
     newmodel.eval()
