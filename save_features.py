@@ -69,8 +69,8 @@ if __name__ == '__main__':
     model = get_model(params.model, params.num_classes)
     model = model.cuda()
 
-
-    model.load_state_dict(torch.load(params.modelfile)['state_dict'])
+    checkpoint = torch.load(params.modelfile, map_location='cpu')
+    model.load_state_dict(checkpoint['state_dict'])
     model.eval()
 
     dirname = os.path.dirname(params.outfile)
