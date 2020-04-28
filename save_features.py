@@ -55,8 +55,6 @@ def get_model(model_name, num_classes=1000):
 
     model = models.resnet152(pretrained=False)
 
-    newmodel = torch.nn.Sequential(*(list(model.children())[:-1]))
-
     model_dict = dict(ResNet10 = ResNetFeat.ResNet10,
                 ResNet18 = ResNetFeat.ResNet18,
                 ResNet34 = ResNetFeat.ResNet34,
@@ -89,9 +87,13 @@ if __name__ == '__main__':
     #in the resnet152 model
     model.load_state_dict(checkpoint['state_dict'])
 
-    model.eval()
+    modules=list(model.children())[:-1]
+
+    resnet152=nn.Sequential(*modules)
+
+    resnet152.eval()
 
     dirname = os.path.dirname(params.outfile)
     if not os.path.isdir(dirname):
         os.makedirs(dirname)
-    save_features(model, data_loader, params.outfile)
+    save_features(resnet152, data_loader, params.outfile)
