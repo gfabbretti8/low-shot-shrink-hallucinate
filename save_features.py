@@ -44,23 +44,9 @@ def save_features(model, data_loader, outfile ):
 
     f.close()
 
-class FFClassifier(nn.Module):
-    def __init__(self, in_features, out_features):
-        super().__init__()
-        self.fc1 = nn.Linear(in_features, out_features)
-
-    def forward(self, x):
-        x = self.fc1(x)
-        x = F.log_softmax(x, dim=1)
-        return x
-
-
 def get_model(model_name, num_classes=1000):
 
     resnet152 = models.resnet152(pretrained=False)
-
-    # Put the classifier on the pretrained network
-    resnet152.fc = FFClassifier(2048, 335)
 
     model_dict = dict(ResNet10 = ResNetFeat.ResNet10,
                 ResNet18 = ResNetFeat.ResNet18,
