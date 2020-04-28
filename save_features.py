@@ -15,6 +15,7 @@ import os
 import argparse
 import numpy as np
 import h5py
+from torchvision import datasets, transforms, models, utils
 
 def save_features(model, data_loader, outfile ):
 
@@ -46,7 +47,7 @@ def get_model(model_name, num_classes):
                 ResNet34 = ResNetFeat.ResNet34,
                 ResNet50 = ResNetFeat.ResNet50,
                 ResNet101 = ResNetFeat.ResNet101,
-                ResNet152 = ResNetFeat.ResNet152)
+                ResNet152 = models.resnet152(pretrained=False))
     return model_dict[model_name](num_classes, False)
 
 
@@ -72,9 +73,8 @@ if __name__ == '__main__':
 
     checkpoint = torch.load(params.modelfile, map_location='cpu')
 
-    print(checkpoint['state_dict'].keys())
 
-    model.load_state_dict(dict(checkpoint['state_dict']))
+    model.load_state_dict(checkpoint['state_dict'])
     model.eval()
 
     dirname = os.path.dirname(params.outfile)
