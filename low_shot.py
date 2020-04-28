@@ -105,7 +105,6 @@ def training_loop(lowshot_dataset, num_classes, params, batchsize=1000, maxiters
 
         scores = model(x)
 
-        print(scores[0], y[0])
         loss = loss_function(scores,y)
         loss.backward()
         optimizer.step()
