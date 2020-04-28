@@ -32,7 +32,7 @@ def save_features(model, data_loader, outfile ):
             print('{:d}/{:d}'.format(i, len(data_loader)))
         x = x.cuda()
         x_var = Variable(x)
-        scores, feats = model(x_var)
+        feats = model(x_var)
         if all_feats is None:
             all_feats = f.create_dataset('all_feats', (max_count, feats.size(1)), dtype='f')
         all_feats[count:count+feats.size(0),:] = feats.data.cpu().numpy()
@@ -88,14 +88,18 @@ if __name__ == '__main__':
 
     data_loader = data.get_data_loader(data_params)
     model = get_model(params.model, params.num_classes)
-    model = model.cuda() 
+    model = model.cuda()
 
     checkpoint = torch.load(params.modelfile)
 
     model.load_state_dict(checkpoint['state_dict'])
-    model.eval()
+
+    model = models.resnet152(pretrained=True)
+    newmodel = torch.nn.Sequential(*(list(model.children())[:-1]))
+
+    newmodel.eval()
 
     dirname = os.path.dirname(params.outfile)
     if not os.path.isdir(dirname):
         os.makedirs(dirname)
-    save_features(model, data_loader, params.outfile)
+    save_features(newmodel, data_loader, params.outfile)
