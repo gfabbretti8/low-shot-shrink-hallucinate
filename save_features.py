@@ -41,13 +41,20 @@ def save_features(model, data_loader, outfile ):
 
     f.close()
 
-def get_model(model_name, num_classes):
+def get_model(model_name, num_classes=1000):
+
+    resnet152 = models.resnet152(pretrained=False)
+
+    # Put the classifier on the pretrained network
+    resnet152.fc = FFClassifier(2048, 335)
+
     model_dict = dict(ResNet10 = ResNetFeat.ResNet10,
                 ResNet18 = ResNetFeat.ResNet18,
                 ResNet34 = ResNetFeat.ResNet34,
                 ResNet50 = ResNetFeat.ResNet50,
                 ResNet101 = ResNetFeat.ResNet101,
-                ResNet152 = models.resnet152(pretrained=False))
+                ResNet152 = resnet152)
+
     return model_dict[model_name]
 
 
