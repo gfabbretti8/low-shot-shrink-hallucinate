@@ -44,18 +44,29 @@ def save_features(model, data_loader, outfile ):
 
     f.close()
 
+class FFClassifier(nn.Module):
+    def __init__(self, in_features, out_features):
+        super().__init__()
+        self.fc1 = nn.Linear(in_features, out_features)
+
+    def forward(self, x):
+        x = self.fc1(x)
+        x = F.log_softmax(x, dim=1)
+        return x
+
 def get_model(model_name, num_classes=1000):
 
 
     model = models.resnet152(pretrained=False)
-    newmodel = torch.nn.Sequential(*(list(model.children())[:-1]))
+    model.fc = FFClassifier(2048, 102)
+
 
     model_dict = dict(ResNet10 = ResNetFeat.ResNet10,
                 ResNet18 = ResNetFeat.ResNet18,
                 ResNet34 = ResNetFeat.ResNet34,
                 ResNet50 = ResNetFeat.ResNet50,
                 ResNet101 = ResNetFeat.ResNet101,
-                ResNet152 = newmodel)
+                ResNet152 = model)
 
     return model_dict[model_name]
 
