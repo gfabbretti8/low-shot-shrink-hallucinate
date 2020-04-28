@@ -48,7 +48,7 @@ def get_model(model_name, num_classes):
                 ResNet50 = ResNetFeat.ResNet50,
                 ResNet101 = ResNetFeat.ResNet101,
                 ResNet152 = models.resnet152(pretrained=False))
-    return model_dict[model_name](num_classes, False)
+    return model_dict[model_name]
 
 
 
