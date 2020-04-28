@@ -2,7 +2,7 @@ dataset_type: 'MetaDataset'
 dataset_params:
   meta: 'val.json'
 transform_params:
-  transform_list: ['Resize','CenterCrop', 'ToTensor', 'Normalize']
+  transform_list: ['Scale','CenterCrop', 'ToTensor', 'Normalize']
   image_size: 224
   scale: 256
   mean: [0.485, 0.456, 0.406]
