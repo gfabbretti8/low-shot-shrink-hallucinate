@@ -84,7 +84,7 @@ if __name__ == '__main__':
     checkpoint = torch.load(params.modelfile)
     #strict is necessary because we did transfer learning and we don't have the fc layer
     #in the resnet152 model
-    model.load_state_dict(checkpoint['state_dict'])
+    model.load_state_dict(checkpoint['state_dict'], strict=False)
 
     model.eval()
 
