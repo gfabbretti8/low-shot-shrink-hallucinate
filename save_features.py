@@ -29,7 +29,7 @@ def save_features(model, data_loader, outfile ):
     count=0
     for i, (x,y) in enumerate(data_loader):
         print(i)
-        torch.cuda.empty_cache() 
+        torch.cuda.empty_cache()
         if i%10 == 0:
             print('{:d}/{:d}'.format(i, len(data_loader)))
         x = x.cuda()
@@ -63,7 +63,6 @@ class FFClassifier(nn.Module):
 def get_model(model_name, num_classes=1000):
 
     model = models.resnet152(pretrained=False)
-    model.fc = FFClassifier(2048, 102)
 
     model_dict = dict(ResNet10 = ResNetFeat.ResNet10,
                 ResNet18 = ResNetFeat.ResNet18,
@@ -97,13 +96,15 @@ if __name__ == '__main__':
 
     checkpoint = torch.load(params.modelfile)
 
-    model.load_state_dict(checkpoint['state_dict'])
+    model.load_state_dict(checkpoint['state_dict'], strict=False)
 
-    newmodel = torch.nn.Sequential(*(list(model.children())[:-1]))
+    #newmodel = torch.nn.Sequential(*(list(model.children())[:-1]))
 
-    newmodel.eval()
+    #newmodel.eval()
+
+    model.eval()
 
     dirname = os.path.dirname(params.outfile)
     if not os.path.isdir(dirname):
         os.makedirs(dirname)
-    save_features(newmodel, data_loader, params.outfile)
+    save_features(model, data_loader, params.outfile)
