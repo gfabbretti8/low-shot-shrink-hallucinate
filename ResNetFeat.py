@@ -13,6 +13,8 @@ from torch.autograd import Variable
 # Modification of ResNet so that it also outputs a feature vector
 class ResNetFeat(ResNetBasic.ResNet):
     def __init__(self, block, list_of_num_layers, list_of_out_dims, num_classes=1000, only_trunk=False, classifier_has_bias=True):
+        # list_of_num_layers specifies number of layers in each stage
+        # list_of_out_dims specifies number of output channel for each stage
         super(ResNetFeat, self).__init__(block, list_of_num_layers, list_of_out_dims, num_classes, only_trunk)
         if not classifier_has_bias:
             self.classifier = nn.Linear(self.final_feat_dim, num_classes, bias=classifier_has_bias)
@@ -44,6 +46,5 @@ def ResNet50(num_classes=1000, only_trunk=False):
 def ResNet101(num_classes=1000, only_trunk=False):
     return ResNetFeat(ResNetBasic.BottleneckBlock, [3,4,23,3],[256,512,1024,2048], num_classes, only_trunk, classifier_has_bias=False)
 
-
-
-
+def ResNet152(num_classes=1000, only_trunk=False):
+    return ResNetFeat(ResNetBasic.BottleneckBlock, [3, 8, 36, 3],[256,512,1024,2048], num_classes, only_trunk, classifier_has_bias=False)
