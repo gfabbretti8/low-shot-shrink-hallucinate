@@ -15,7 +15,7 @@ import os
 import argparse
 import numpy as np
 import h5py
-from torchvision import datasets, transforms, models, utils
+from torchvision import models
 from torch import nn
 from torch import optim
 import torch.nn.functional as F
@@ -53,7 +53,9 @@ def save_features(model, data_loader, outfile ):
 
 def get_model(model_name, num_classes=1000):
 
-    model = models.resnet152(pretrained=False)
+    #model = models.resnet152(pretrained=False)
+    #tested with imagenet weights
+    model = models.resnet152(pretrained=True)
 
     model_dict = dict(ResNet10 = ResNetFeat.ResNet10,
                 ResNet18 = ResNetFeat.ResNet18,
@@ -83,9 +85,9 @@ if __name__ == '__main__':
     model = model.cuda()
 
     checkpoint = torch.load(params.modelfile)
-    #strict is necessary because we did transfer learning and we don't have the fc layer
+    #strict=False is necessary because we did transfer learning and we don't have the fc layer
     #in the resnet152 model
-    model.load_state_dict(checkpoint['state_dict'], strict=False)
+    #model.load_state_dict(checkpoint['state_dict'], strict=False)
 
     modules=list(model.children())[:-1]
 
