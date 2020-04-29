@@ -36,7 +36,6 @@ def save_features(model, data_loader, outfile ):
         feats = model(x_var)
 
         feats = feats.view(feats.size(0),-1)
-        print(feats.shape)
 
         if all_feats is None:
             all_feats = f.create_dataset('all_feats', (max_count, feats.size(1)), dtype='f')
