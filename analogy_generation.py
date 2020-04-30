@@ -224,6 +224,7 @@ def train_classifier(filehandle, base_classes, cachefile, networkfile, total_num
     elif os.path.isfile(networkfile):
         tmp = torch.load(networkfile)
 
+        weights = dict()
         weights['weight'] = tmp['state_dict']['fc.fc1.weight']
         weights['bias'] = tmp['state_dict']['fc.fc1.bias']
 
