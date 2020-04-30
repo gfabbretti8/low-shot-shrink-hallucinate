@@ -16,7 +16,6 @@ import torch.utils.data.sampler
 import os
 import generation
 
-CUDA_LAUNCH_BLOCKING=1
 
 class SimpleHDF5Dataset:
     def __init__(self, file_handle):

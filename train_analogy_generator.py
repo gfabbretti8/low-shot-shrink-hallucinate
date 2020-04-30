@@ -22,7 +22,6 @@ def parse_args():
     return parser.parse_args()
 
 
-
 if __name__ == '__main__':
     params = parse_args()
     with open(params.lowshotmeta, 'r') as f:
@@ -42,5 +41,3 @@ if __name__ == '__main__':
     generator = analogy_generation.train_analogy_regressor_main(params.trainfile, base_classes, cachedir, params.networkfile, initlr=params.initlr)
 
     torch.save(generator,os.path.join(outdir, 'generator.tar'))
-
-

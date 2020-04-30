@@ -45,7 +45,7 @@ def init_clusters(k, dim):
     C = C/Cnorm
     return C
 
-def cluster_feats(filehandle, base_classes, cachefile, n_clusters=100):
+def cluster_feats(filehandle, base_classes, cachefile, n_clusters=10):
     if os.path.isfile(cachefile):
         with open(cachefile, 'rb') as f:
             centroids = pickle.load(f)
@@ -180,6 +180,7 @@ def train_analogy_regressor(analogies, centroids, base_classes, trained_classifi
         lossval_2 = loss_2(Bhat, B) # simple mean squared error loss
 
         # classification loss
+        # we want that the old classifier recognize the image generated from the analogy generator
         predicted_classprobs = trained_classifier(Bhat)
         lossval_1 = loss_1(predicted_classprobs, Y)
         loss = lossval_1 + wt * lossval_2
@@ -222,12 +223,17 @@ def train_classifier(filehandle, base_classes, cachefile, networkfile, total_num
         model.load_state_dict(tmp)
     elif os.path.isfile(networkfile):
         tmp = torch.load(networkfile)
-        if 'module.classifier.bias' in tmp['state']:
-            state_dict = {'weight':tmp['state']['module.classifier.weight'], 'bias':tmp['state']['module.classifier.bias']}
-        else:
-            model = nn.Linear(all_feats[0].size, total_num_classes, bias=False).cuda()
-            state_dict = {'weight':tmp['state']['module.classifier.weight']}
-        model.load_state_dict(state_dict)
+
+        weights['weight'] = tmp['state_dict']['fc.fc1.weight']
+        weights['bias'] = tmp['state_dict']['fc.fc1.bias']
+
+        # if 'module.classifier.bias' in tmp['state']:
+        #     state_dict = {'weight':tmp['state']['module.classifier.weight'], 'bias':tmp['state']['module.classifier.bias']}
+        # else:
+        #     model = nn.Linear(all_feats[0].size, total_num_classes, bias=False).cuda()
+        #     state_dict = {'weight':tmp['state']['module.classifier.weight']}
+
+        model.load_state_dict(weights)
     else:
         optimizer = torch.optim.SGD(model.parameters(), lr, momentum=momentum, weight_decay=wd, dampening=0)
         for i in range(niter):
@@ -321,12 +327,3 @@ def init_generator(generator_file):
     model = model.cuda()
     G['model'] =model
     return G
-
-
-
-
-
-
-
-
-
