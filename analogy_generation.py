@@ -248,7 +248,7 @@ def train_classifier(filehandle, base_classes, cachefile, networkfile, total_num
             loss_val.backward()
             optimizer.step()
             if i % 100 == 0:
-                print('Classifier training {:d}: {:f}'.format(i, loss_val.data[0]))
+                print('Classifier training {:d}: {:f}'.format(i, loss_val.item()))
         torch.save(model.state_dict(), cachefile)
 
     return model
