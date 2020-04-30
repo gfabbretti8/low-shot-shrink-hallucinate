@@ -106,7 +106,7 @@ def train_matching_network(model, file_handle, base_classes, m=389, n=10, initlr
         train_Y = torch.zeros(batchsize, m)
         test_feats = torch.zeros(m, model.feat_dim)
         test_labels = torch.arange(0,m)
-        print(test_feats.shape, test_labels.shape)
+
         count=0
         for j in range(m):
             idx = np.where(all_labels==rand_labels[j])[0]
@@ -125,6 +125,7 @@ def train_matching_network(model, file_handle, base_classes, m=389, n=10, initlr
         test_feats = Variable(test_feats.cuda())
         test_labels = Variable(test_labels.long().cuda())
 
+        print(test_feats.shape, train_feats.shape, train_Y.shape)
         logprob = model(test_feats, train_feats, train_Y)
         loss = loss_fn(logprob, test_labels)
         loss.backward()
