@@ -17,7 +17,7 @@ def parse_args():
     parser.add_argument('--trainfile', required=True, type=str, help='Training set features')
     parser.add_argument('--numclasses', default=1000, type=int, help='Total number of classes')
     parser.add_argument('--outdir', type=str, help='output direcrory')
-    parser.add_argument('--numcluster', type=str, help='Number of the total clusters')
+    parser.add_argument('--numcluster', type=int, help='Number of the total clusters')
     parser.add_argument('--networkfile', default=None, type=str, help='Path to trained model file')
     parser.add_argument('--initlr', default=0.1, type=float, help='Initial learning rate')
     return parser.parse_args()
