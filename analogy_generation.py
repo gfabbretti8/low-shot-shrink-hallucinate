@@ -134,7 +134,7 @@ def mine_analogies(centroids):
 
 
 
-def train_analogy_regressor(analogies, centroids, base_classes, trained_classifier, lr=0.1, wt=10, niter=8000, step_after=40000, batchsize=128, momentum=0.9, wd=0.0001):
+def train_analogy_regressor(analogies, centroids, base_classes, trained_classifier, lr=0.1, wt=10, niter=15000, step_after=40000, batchsize=128, momentum=0.9, wd=0.0001):
     # pre-permute analogies
     permuted_analogies = analogies[np.random.permutation(analogies.shape[0])]
 
@@ -216,7 +216,6 @@ def train_classifier(filehandle, base_classes, cachefile, networkfile, total_num
     all_labels = all_labels.astype(int)
     all_feats = filehandle['all_feats']
     base_class_ids = np.where(np.in1d(all_labels, base_classes))[0]
-    loss = nn.CrossEntropyLoss().cuda()
     model = nn.Linear(all_feats[0].size, total_num_classes).cuda()
     if os.path.isfile(cachefile):
         tmp = torch.load(cachefile)
@@ -236,6 +235,7 @@ def train_classifier(filehandle, base_classes, cachefile, networkfile, total_num
 
         model.load_state_dict(weights)
     else:
+        loss = nn.CrossEntropyLoss().cuda()
         optimizer = torch.optim.SGD(model.parameters(), lr, momentum=momentum, weight_decay=wd, dampening=0)
         for i in range(niter):
             optimizer.zero_grad()
