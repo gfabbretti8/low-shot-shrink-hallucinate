@@ -100,7 +100,7 @@ def mine_analogies(centroids):
         for j, c_j in enumerate(centroids):
             if i==j:
                 continue
-            print(i,j)
+            #print(i,j)
 
             # get normalized difference vectors
             diff_j = get_difference_vectors(c_j)
@@ -188,8 +188,8 @@ def train_analogy_regressor(analogies, centroids, base_classes, trained_classifi
         loss.backward()
         optimizer.step()
 
-        avg_loss_1 = avg_loss_1 + lossval_1.data[0]
-        avg_loss_2 = avg_loss_2 + lossval_2.data[0]
+        avg_loss_1 = avg_loss_1 + lossval_1.item()
+        avg_loss_2 = avg_loss_2 + lossval_2.item()
         count = count+1.0
 
 
@@ -199,7 +199,7 @@ def train_analogy_regressor(analogies, centroids, base_classes, trained_classifi
 
         if (i+1) % step_after == 0:
             lr = lr / 10.0
-            print(lr)
+            #print(lr)
             for param_group in optimizer.param_groups:
                 param_group['lr'] = lr
 
