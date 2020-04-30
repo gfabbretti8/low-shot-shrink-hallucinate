@@ -38,6 +38,6 @@ if __name__ == '__main__':
     if not os.path.isdir(cachedir):
         os.makedirs(cachedir)
 
-    generator = analogy_generation.train_analogy_regressor_main(params.trainfile, base_classes, cachedir, params.networkfile, initlr=params.initlr)
+    generator = analogy_generation.train_analogy_regressor_main(params.trainfile, base_classes, cachedir, params.networkfile, params.numclasses, initlr=params.initlr)
 
     torch.save(generator,os.path.join(outdir, 'generator.tar'))

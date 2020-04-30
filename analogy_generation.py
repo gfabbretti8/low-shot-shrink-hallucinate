@@ -257,10 +257,10 @@ def train_classifier(filehandle, base_classes, cachefile, networkfile, total_num
 
 
 
-def train_analogy_regressor_main(trainfile, base_classes, cachedir, networkfile, initlr=0.1):
+def train_analogy_regressor_main(trainfile, base_classes, cachedir, networkfile, num_classes, initlr=0.1):
 
     with h5py.File(trainfile, 'r') as f:
-        classification_model = train_classifier(f, base_classes, os.path.join(cachedir, 'classifier.pkl'), networkfile)
+        classification_model = train_classifier(f, base_classes, os.path.join(cachedir, 'classifier.pkl'), networkfile, num_classes)
         centroids = cluster_feats(f, base_classes, os.path.join(cachedir, 'cluster.pkl'))
     if not os.path.isfile(os.path.join(cachedir, 'analogies.npy')):
         analogies, analogy_scores = mine_analogies(centroids)
