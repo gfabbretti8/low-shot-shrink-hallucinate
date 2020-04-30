@@ -100,7 +100,7 @@ def mine_analogies(centroids):
         for j, c_j in enumerate(centroids):
             if i==j:
                 continue
-            #print(i,j)
+            print(i,j)
 
             # get normalized difference vectors
             diff_j = get_difference_vectors(c_j)
