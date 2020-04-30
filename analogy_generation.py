@@ -134,7 +134,7 @@ def mine_analogies(centroids):
 
 
 
-def train_analogy_regressor(analogies, centroids, base_classes, trained_classifier, lr=0.1, wt=10, niter=20000, step_after=40000, batchsize=128, momentum=0.9, wd=0.0001):
+def train_analogy_regressor(analogies, centroids, base_classes, trained_classifier, lr=0.1, wt=10, niter=8000, step_after=40000, batchsize=128, momentum=0.9, wd=0.0001):
     # pre-permute analogies
     permuted_analogies = analogies[np.random.permutation(analogies.shape[0])]
 
