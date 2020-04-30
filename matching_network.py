@@ -276,7 +276,6 @@ if __name__ == '__main__':
         test_f = h5py.File(params.testfile,'r')
 
         featdim = train_f['all_feats'][0].size
-        print(featdim, "\n\n\n\n")
 
         model = MatchingNetwork(featdim, params.K)
         model = model.cuda()
@@ -301,6 +300,7 @@ if __name__ == '__main__':
         train_f = h5py.File(params.trainfile,'r')
 
         featdim = train_f['all_feats'][0].size
+        print(featdim, "\n\n\n\n")
         model = MatchingNetwork(featdim, params.K)
         model = model.cuda()
 
