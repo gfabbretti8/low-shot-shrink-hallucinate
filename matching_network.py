@@ -98,7 +98,7 @@ def train_matching_network(model, file_handle, base_classes, m=389, n=10, initlr
     for it in range(niter):
         optimizer.zero_grad()
 
-        rand_labels = np.random.choice(base_classes, m, replace=False)
+        rand_labels = np.random.choice(base_classes, m, replace=True)
         num = np.random.choice(n, m)+1
         batchsize = int(np.sum(num))
 
