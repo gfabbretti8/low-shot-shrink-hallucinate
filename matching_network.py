@@ -100,12 +100,12 @@ def train_matching_network(model, file_handle, base_classes, m=389, n=10, initlr
 
         rand_labels = np.random.choice(base_classes, m, replace=False)
         num = np.random.choice(n, m)+1
-        batchsize = 2048 #int(np.sum(num))
+        batchsize = int(np.sum(num))
 
         train_feats = torch.zeros(batchsize, model.feat_dim)
         train_Y = torch.zeros(batchsize, m)
-        test_feats = torch.zeros(batchsize, model.feat_dim)
-        test_labels = torch.arange(0,batchsize)
+        test_feats = torch.zeros(m, model.feat_dim)
+        test_labels = torch.range(0,m-1)
 
         count=0
         for j in range(m):
@@ -125,7 +125,6 @@ def train_matching_network(model, file_handle, base_classes, m=389, n=10, initlr
         test_feats = Variable(test_feats.cuda())
         test_labels = Variable(test_labels.long().cuda())
 
-        print(test_feats.shape, train_feats.shape, train_Y.shape)
         logprob = model(test_feats, train_feats, train_Y)
         loss = loss_fn(logprob, test_labels)
         loss.backward()
@@ -277,7 +276,6 @@ if __name__ == '__main__':
         test_f = h5py.File(params.testfile,'r')
 
         featdim = train_f['all_feats'][0].size
-
         model = MatchingNetwork(featdim, params.K)
         model = model.cuda()
         tmp = torch.load(params.modelfile)
@@ -301,9 +299,8 @@ if __name__ == '__main__':
         train_f = h5py.File(params.trainfile,'r')
 
         featdim = train_f['all_feats'][0].size
-
         model = MatchingNetwork(featdim, params.K)
         model = model.cuda()
 
-        model = train_matching_network(model, train_f, base_classes, len(base_classes))
+        model = train_matching_network(model, train_f, base_classes, 102)
         torch.save(model.state_dict(), params.modelfile)
