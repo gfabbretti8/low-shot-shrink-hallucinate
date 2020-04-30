@@ -302,8 +302,5 @@ if __name__ == '__main__':
         model = MatchingNetwork(featdim, params.K)
         model = model.cuda()
 
-        model = train_matching_network(model, train_f, base_classes)
+        model = train_matching_network(model, train_f, base_classes, len(base_classes))
         torch.save(model.state_dict(), params.modelfile)
-
-
-
