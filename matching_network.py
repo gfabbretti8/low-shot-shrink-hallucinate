@@ -276,6 +276,7 @@ if __name__ == '__main__':
         test_f = h5py.File(params.testfile,'r')
 
         featdim = train_f['all_feats'][0].size
+        print(featdim)
         model = MatchingNetwork(featdim, params.K)
         model = model.cuda()
         tmp = torch.load(params.modelfile)
