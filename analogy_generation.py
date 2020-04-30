@@ -62,7 +62,7 @@ def cluster_feats(filehandle, base_classes, cachefile, n_clusters=100):
             X = all_feats[idx,:]
             # use a reimplementation of torch kmeans for reproducible results
             # TODO: Figure out why this is important
-            centroids_this = torch_kmeans.kmeans(X, n_clusters, 20)
+            centroids_this = torch_kmeans.kmeans(X, n_clusters, 200) #old value was 20
             centroids.append(centroids_this)
         with open(cachefile, 'wb') as f:
             pickle.dump(centroids, f)
