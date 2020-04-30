@@ -105,7 +105,7 @@ def train_matching_network(model, file_handle, base_classes, m=389, n=10, initlr
         train_feats = torch.zeros(batchsize, model.feat_dim)
         train_Y = torch.zeros(batchsize, m)
         test_feats = torch.zeros(m, model.feat_dim)
-        test_labels = torch.range(0,m-1)
+        test_labels = torch.arange(0,m)
 
         count=0
         for j in range(m):
