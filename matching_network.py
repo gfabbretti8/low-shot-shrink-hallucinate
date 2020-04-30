@@ -110,7 +110,7 @@ def train_matching_network(model, file_handle, base_classes, m=389, n=10, initlr
         count=0
         for j in range(m):
             idx = np.where(all_labels==rand_labels[j])[0]
-            train_idx = np.sort(np.random.choice(idx, num[j], replace=False))
+            train_idx = np.sort(np.random.choice(idx, num[j], replace=True))
             test_idx = np.random.choice(idx)
 
             F_tmp = file_handle['all_feats'][list(train_idx)]
@@ -302,5 +302,5 @@ if __name__ == '__main__':
         model = MatchingNetwork(featdim, params.K)
         model = model.cuda()
 
-        model = train_matching_network(model, train_f, base_classes, 102)
+        model = train_matching_network(model, train_f, base_classes)
         torch.save(model.state_dict(), params.modelfile)
