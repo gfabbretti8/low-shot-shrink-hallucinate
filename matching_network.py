@@ -100,7 +100,7 @@ def train_matching_network(model, file_handle, base_classes, m=389, n=10, initlr
 
         rand_labels = np.random.choice(base_classes, m, replace=False)
         num = np.random.choice(n, m)+1
-        batchsize = int(np.sum(num))
+        batchsize = 20480 #int(np.sum(num))
 
         train_feats = torch.zeros(batchsize, model.feat_dim)
         train_Y = torch.zeros(batchsize, m)
