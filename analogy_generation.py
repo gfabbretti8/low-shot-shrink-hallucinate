@@ -45,7 +45,7 @@ def init_clusters(k, dim):
     C = C/Cnorm
     return C
 
-def cluster_feats(filehandle, base_classes, cachefile, n_clusters=10):
+def cluster_feats(filehandle, base_classes, cachefile, n_clusters=30):
     if os.path.isfile(cachefile):
         with open(cachefile, 'rb') as f:
             centroids = pickle.load(f)
