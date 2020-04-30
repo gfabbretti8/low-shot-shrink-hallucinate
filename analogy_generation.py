@@ -210,7 +210,7 @@ def train_analogy_regressor(analogies, centroids, base_classes, trained_classifi
     return dict(model_state=model.state_dict(), concatenated_centroids=torch.Tensor(concatenated_centroids),
             num_base_classes=len(centroids), num_clusters_per_class=num_clusters_per_class)
 
-def train_classifier(filehandle, base_classes, cachefile, networkfile, total_num_classes = 1000, lr=0.1, wd=0.0001, momentum=0.9, batchsize=1000, niter=10000):
+def train_classifier(filehandle, base_classes, cachefile, networkfile, total_num_classes = 1000, lr=0.1, wd=0.0001, momentum=0.9, batchsize=1000, niter=1000):
     # either use pre-existing classifier or train one
     all_labels = filehandle['all_labels'][...]
     all_labels = all_labels.astype(int)
