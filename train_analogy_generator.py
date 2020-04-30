@@ -17,6 +17,7 @@ def parse_args():
     parser.add_argument('--trainfile', required=True, type=str, help='Training set features')
     parser.add_argument('--numclasses', default=1000, type=int, help='Total number of classes')
     parser.add_argument('--outdir', type=str, help='output direcrory')
+    parser.add_argument('--numcluster', type=str, help='Number of the total clusters')
     parser.add_argument('--networkfile', default=None, type=str, help='Path to trained model file')
     parser.add_argument('--initlr', default=0.1, type=float, help='Initial learning rate')
     return parser.parse_args()
@@ -38,6 +39,6 @@ if __name__ == '__main__':
     if not os.path.isdir(cachedir):
         os.makedirs(cachedir)
 
-    generator = analogy_generation.train_analogy_regressor_main(params.trainfile, base_classes, cachedir, params.networkfile, params.numclasses, initlr=params.initlr)
+    generator = analogy_generation.train_analogy_regressor_main(params.trainfile, base_classes, cachedir, params.networkfile, params.numclasses, params.numcluster, initlr=params.initlr)
 
     torch.save(generator,os.path.join(outdir, 'generator.tar'))

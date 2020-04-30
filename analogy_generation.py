@@ -45,7 +45,7 @@ def init_clusters(k, dim):
     C = C/Cnorm
     return C
 
-def cluster_feats(filehandle, base_classes, cachefile, n_clusters=80):
+def cluster_feats(filehandle, base_classes, cachefile, n_clusters=100):
     if os.path.isfile(cachefile):
         with open(cachefile, 'rb') as f:
             centroids = pickle.load(f)
@@ -257,11 +257,11 @@ def train_classifier(filehandle, base_classes, cachefile, networkfile, total_num
 
 
 
-def train_analogy_regressor_main(trainfile, base_classes, cachedir, networkfile, num_classes, initlr=0.1):
+def train_analogy_regressor_main(trainfile, base_classes, cachedir, networkfile, num_classes, num_cluster, initlr=0.1):
 
     with h5py.File(trainfile, 'r') as f:
         classification_model = train_classifier(f, base_classes, os.path.join(cachedir, 'classifier.pkl'), networkfile, num_classes)
-        centroids = cluster_feats(f, base_classes, os.path.join(cachedir, 'cluster.pkl'))
+        centroids = cluster_feats(f, base_classes, os.path.join(cachedir, 'cluster.pkl'), num_cluster)
     if not os.path.isfile(os.path.join(cachedir, 'analogies.npy')):
         analogies, analogy_scores = mine_analogies(centroids)
         np.save(os.path.join(cachedir, 'analogies.npy'), analogies.astype(int))
