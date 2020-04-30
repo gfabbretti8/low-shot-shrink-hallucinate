@@ -106,7 +106,7 @@ def train_matching_network(model, file_handle, base_classes, m=389, n=10, initlr
         train_Y = torch.zeros(batchsize, m)
         test_feats = torch.zeros(m, model.feat_dim)
         test_labels = torch.arange(0,m)
-
+        print(test_feats.shape, test_labels.shape)
         count=0
         for j in range(m):
             idx = np.where(all_labels==rand_labels[j])[0]
@@ -300,7 +300,7 @@ if __name__ == '__main__':
         train_f = h5py.File(params.trainfile,'r')
 
         featdim = train_f['all_feats'][0].size
-        print(featdim, "\n\n\n\n")
+
         model = MatchingNetwork(featdim, params.K)
         model = model.cuda()
 
