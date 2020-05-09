@@ -1,4 +1,4 @@
-a# Copyright 2017-present, Facebook, Inc.
+# Copyright 2017-present, Facebook, Inc.
 # All rights reserved.
 #
 # This source code is licensed under the license found in the
