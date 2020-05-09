@@ -180,10 +180,10 @@ if __name__ == '__main__':
         exp = json.load(f)
     novel_idx = np.array(exp)[:,:params.lowshotn]
     if params.testsetup:
-        novel_classes = random.sample(lowshotmeta['novel_classes_2'], params.n_way)
+        novel_classes = lowshotmeta['novel_classes_2'][:params.n_way]
         base_classes = lowshotmeta['base_classes_2']
     else:
-        novel_classes = random.sample(lowshotmeta['novel_classes_1'], params.n_way) 
+        novel_classes = lowshotmeta['novel_classes_1'][:params.n_way] 
         base_classes = lowshotmeta['base_classes_1']
 
     novel_idx = np.sort(novel_idx[novel_classes,:].reshape(-1))
