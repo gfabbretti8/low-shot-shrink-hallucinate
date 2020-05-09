@@ -15,7 +15,7 @@ import argparse
 import torch.utils.data.sampler
 import os
 import generation
-
+import random
 
 class SimpleHDF5Dataset:
     def __init__(self, file_handle):
