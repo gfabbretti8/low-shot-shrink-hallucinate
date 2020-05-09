@@ -24,7 +24,7 @@ def save_features(model, data_loader, outfile ):
     f = h5py.File(outfile, 'w')
     max_count = len(data_loader)*data_loader.batch_size
     all_labels = f.create_dataset('all_labels',(max_count,), dtype='i')
-n    all_feats=None
+    all_feats=None
     count=0
     for i, (x,y) in enumerate(data_loader):
         torch.cuda.empty_cache()
@@ -80,7 +80,7 @@ if __name__ == '__main__':
 
     checkpoint = torch.load(params.modelfile)
     #strict=False is necessary because we did transfer learning and we don't have the fc layer
-    #in the resnet152 model
+    #in the model
     model.load_state_dict(checkpoint['state_dict'], strict=False)
 
     modules=list(model.children())[:-1]
