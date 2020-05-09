@@ -52,10 +52,10 @@ def save_features(model, data_loader, outfile ):
 def get_model(model_name, num_classes=1000):
 
     model_dict = dict(
-        ResNet34 = models.ResNet34(pretrained=False),
-                ResNet50 = models.ResNet50(pretrained=False),
-                ResNet101 = models.ResNet101(pretrained=False),
-        ResNet152 = models.ResNet152(pretrained=False))
+        ResNet34 = models.resnet34(pretrained=False),
+                ResNet50 = models.resnet50(pretrained=False),
+                ResNet101 = models.resnet101(pretrained=False),
+        ResNet152 = models.resnet152(pretrained=False))
 
     return model_dict[model_name]
 
