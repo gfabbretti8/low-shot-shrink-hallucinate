@@ -89,7 +89,7 @@ def get_test_loader(file_handle, batch_size=1000):
 
 def training_loop(lowshot_dataset, num_classes, params, batchsize=1000, maxiters=1000):
     featdim = lowshot_dataset.featdim()
-    print(featdim, num_classes)
+    print("Feature dimension: " + str(featdim) + ", Number of classes: " + str(num_classes))
     model = nn.Linear(featdim, num_classes)
     model = model.cuda()
     optimizer = torch.optim.SGD(model.parameters(), params.lr, momentum=params.momentum, dampening=params.momentum, weight_decay=params.wd)
