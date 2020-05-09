@@ -1,4 +1,4 @@
-# Copyright 2017-present, Facebook, Inc.
+a# Copyright 2017-present, Facebook, Inc.
 # All rights reserved.
 #
 # This source code is licensed under the license found in the
@@ -28,8 +28,8 @@ def parse_transform(transform_type, transform_params):
     method = getattr(transforms, transform_type)
     if transform_type=='RandomSizedCrop' or transform_type=='CenterCrop':
         return method(transform_params['image_size'])
-    elif transform_type=='Scale':
-        return method(transform_params['scale'])
+    elif transform_type=='Resize':
+        return method(transform_params['resize'])
     elif transform_type=='Normalize':
         return method(mean=transform_params['mean'], std=transform_params['std'])
     else:
