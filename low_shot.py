@@ -156,7 +156,7 @@ def parse_args():
     parser.add_argument('--trainfile', required=True, type=str)
     parser.add_argument('--testfile', required=True, type=str)
     parser.add_argument('--testsetup', default=0, type=int, help='test setup or validation setup?')
-    parser.add_argument('--nway', type=int, default=5)
+    parser.add_argument('--n_way', type=int, default=5)
     parser.add_argument('--numclasses', default=1000, type=int)
     parser.add_argument('--lr', default=0.1, type=float)
     parser.add_argument('--momentum', default=0.9, type=float)
