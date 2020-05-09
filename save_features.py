@@ -71,7 +71,7 @@ def parse_args():
 if __name__ == '__main__':
     params = parse_args()
     with open(params.cfg,'r') as f:
-        data_params = yaml.load(f)
+        data_params = yaml.load(f, Loader=yaml.FullLoader)
 
     data_loader = data.get_data_loader(data_params)
     model = get_model(params.model, params.num_classes)
