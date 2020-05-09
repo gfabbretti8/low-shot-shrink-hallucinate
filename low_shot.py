@@ -136,17 +136,16 @@ def eval_loop(data_loader, model, base_classes, novel_classes):
         all_labels = y.numpy() if all_labels is None else np.concatenate((all_labels, y.numpy()))
 
     is_novel = np.in1d(all_labels, novel_classes)
-    #is_base = np.in1d(all_labels, base_classes)
-    #is_either = is_novel | is_base
+    is_base = np.in1d(all_labels, base_classes)
+    is_either = is_novel | is_base
     top1_novel = np.mean(top1[is_novel])
-    #top1_base = np.mean(top1[is_base])
-    #top1_all = np.mean(top1[is_either])
+    top1_base = np.mean(top1[is_base])
+    top1_all = np.mean(top1[is_either])
     top5_novel = np.mean(top5[is_novel])
-    #top5_base = np.mean(top5[is_base])
-    #top5_all = np.mean(top5[is_either])
-    #return np.array([top1_novel, top5_novel, top1_base, top5_base, top1_all, top5_all])
-    return np.array([top1_novel, top5_novel])
-
+    top5_base = np.mean(top5[is_base])
+    top5_all = np.mean(top5[is_either])
+    return np.array([top1_novel, top5_novel, top1_base, top5_base, top1_all, top5_all])
+   
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Low shot benchmark')
@@ -157,6 +156,7 @@ def parse_args():
     parser.add_argument('--trainfile', required=True, type=str)
     parser.add_argument('--testfile', required=True, type=str)
     parser.add_argument('--testsetup', default=0, type=int, help='test setup or validation setup?')
+    parser.add_argument('--nway', type=int, default=5)
     parser.add_argument('--numclasses', default=1000, type=int)
     parser.add_argument('--lr', default=0.1, type=float)
     parser.add_argument('--momentum', default=0.9, type=float)
@@ -180,10 +180,10 @@ if __name__ == '__main__':
         exp = json.load(f)
     novel_idx = np.array(exp)[:,:params.lowshotn]
     if params.testsetup:
-        novel_classes = lowshotmeta['novel_classes_2']
+        novel_classes = random.sample(lowshotmeta['novel_classes_2'], params.n_way)
         base_classes = lowshotmeta['base_classes_2']
     else:
-        novel_classes = lowshotmeta['novel_classes_1']
+        novel_classes = random.sample(lowshotmeta['novel_classes_1'], params.n_way) 
         base_classes = lowshotmeta['base_classes_1']
 
     novel_idx = np.sort(novel_idx[novel_classes,:].reshape(-1))
