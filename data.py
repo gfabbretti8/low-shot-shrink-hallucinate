@@ -29,7 +29,7 @@ def parse_transform(transform_type, transform_params):
     if transform_type=='RandomSizedCrop' or transform_type=='CenterCrop':
         return method(transform_params['image_size'])
     elif transform_type=='Resize':
-        return method(transform_params['resize'])
+        return method(transform_params['resize'], size=transform_params['size'])
     elif transform_type=='Normalize':
         return method(mean=transform_params['mean'], std=transform_params['std'])
     else:
