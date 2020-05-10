@@ -10,7 +10,7 @@ do
       --outdir results \
       --n_way $i \
       --numclasses 244 \
-      --maxiter 30000 \
+      --maxiter 10000 \
       --batchsize 64 \
       --lr 0.1 --wd 0.01 \
       --testsetup 1
