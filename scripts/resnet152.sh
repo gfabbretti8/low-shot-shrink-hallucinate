@@ -1,5 +1,5 @@
 # Low-shot benchmark without generation
-for i in {1..5}
+for i in 1 2 3 4 5
 do
   for j in 1 2 5 10 20
   do
