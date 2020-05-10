@@ -10,5 +10,6 @@ do
     --numclasses 244 \
     --maxiter 35000 \
     --batchsize 64 \
-   --lr 0.01 --wd 0.001 
+    --lr 0.01 --wd 0.001 \
+    --testsetup 1
 done
