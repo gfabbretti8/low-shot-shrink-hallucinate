@@ -3,7 +3,7 @@ do
   for j in 1 5
   do
     python ./low_shot.py --lowshotmeta label_idx.json \
-      --experimentpath experiment_cfgs/splitfile_{:d}.json \
+      --experimentpath experiment_cfgs/splitfile_3.json \
       --experimentid  $i --lowshotn $j \
       --trainfile features/ResNet152/train.hdf5 \
       --testfile features/ResNet152/val.hdf5 \
