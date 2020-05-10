@@ -8,6 +8,7 @@ do
       --trainfile features/ResNet152/train.hdf5 \
       --testfile features/ResNet152/val.hdf5 \
       --outdir results \
+      --n_way $i \
       --lr 0.1 --wd 0.01 \
       --testsetup 1
   done
