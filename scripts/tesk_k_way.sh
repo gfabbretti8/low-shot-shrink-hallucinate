@@ -9,6 +9,9 @@ do
       --testfile features/ResNet152/val.hdf5 \
       --outdir results \
       --n_way $i \
+      --numclasses 244 \
+      --maxiter 30000 \
+      --batchsize 64 \
       --lr 0.1 --wd 0.01 \
       --testsetup 1
   done
